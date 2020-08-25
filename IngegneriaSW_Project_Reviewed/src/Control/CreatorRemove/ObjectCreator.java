@@ -1,11 +1,12 @@
-package Control;
+package Control.CreatorRemove;
 
+import Control.StaticVariables;
 import Model.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateObject extends Util implements StaticVariables{
+public class ObjectCreator extends GenericInfo implements StaticVariables {
 
     public static UnitaImmobiliari createUnitaImmobiliare(){
         String nomeUnita = readStringUnique("Dai un nome all'unità immobiliare > ", listaNomiUnitaImmobiliari);

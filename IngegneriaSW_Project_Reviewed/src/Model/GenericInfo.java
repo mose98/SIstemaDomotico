@@ -1,6 +1,8 @@
 package Model;
 
-public class GenericInfo {
+import Control.Util;
+
+public class GenericInfo extends Util {
     String nome;
     String descrizione;
 

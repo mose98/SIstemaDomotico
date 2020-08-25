@@ -78,6 +78,16 @@ public class UnitaImmobiliari extends GenericInfo{
         System.out.println();
     }
 
+    public void printArtefatti(){
+        int index = 1;
+        System.out.println("LISTA ARTEFATTI");
+        for (Artefatti art : getListaArtefattiUnita()
+        ) {
+            System.out.println(index + ") " + art.getNome() + "      Posizione > " + art.getDescrizione());
+            index++;
+        }
+    }
+
     public List<String> getListaAttuatoriUnitaUbicazione() {
         return listaAttuatoriUnitaUbicazione;
     }

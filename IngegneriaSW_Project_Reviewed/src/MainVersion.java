@@ -1,13 +1,16 @@
-import Control.CreateObject;
+import Control.CreatorRemove.ObjectRemoval;
 import Control.StaticVariables;
 import Model.*;
 import mylib.*;
 
-public class MainVersion extends CreateObject implements StaticVariables {
+import static Control.CreatorRemove.ObjectCreator.*;
+
+public class MainVersion implements StaticVariables {
     public static void main(String[] args) {
         tipologieUnitaImmobiliari.add("Privato");
         tipologieUnitaImmobiliari.add("Commerciale");
 
+        ObjectRemoval removeController = new ObjectRemoval();
         SistemaDomotico sistemaDomotico = new SistemaDomotico();
         int scelta, sceltaManut, sceltaFruit, sceltaModOperativa;
         MyMenu menuIniziale;
@@ -157,9 +160,112 @@ public class MainVersion extends CreateObject implements StaticVariables {
                                     } while (confirm == 'y');
                                 }
                                 break;
+                            //rimuovi stanze
+                            case 8:
+                                if (sistemaDomotico.checkUnita() && listaStanze.size() > 0) {
+                                    confirm = chooseInsert("Sei sicuro di voler proseguire con la rimozione?\npremere 'y' per confermare\npremere 'n' per tornare al menu precedente", 'y', 'n');
+                                    if (confirm == 'n') break;
+
+                                    printNewLineAndTitle(titDelStanza);
+
+                                    SistemaDomotico.printListUnita(listaUnitaImmobiliari);
+                                    UnitaImmobiliari unitaSel = listaUnitaImmobiliari.get(chooseFromList("Selezionare l'unita' immobiliare dalla quale si vuole eliminare la stanza?", listaUnitaImmobiliari) - 1);
+
+                                    unitaSel.printStanze();
+                                    Stanze stanzaSel = unitaSel.getListastanza().get(chooseFromList("Selezionare la stanza da rimuovere > ", unitaSel.getListastanza()));
+                                    removeController.deleteObject(unitaSel, stanzaSel);
+
+                                    printNewLineAndTitle(titEndDelStanza);
+                                }
+                                break;
+                            //rimuovi artefatto
+                            case 9:
+                                if (sistemaDomotico.checkUnita() && listaArtefatti.size() > 0) {
+                                    confirm = chooseInsert("Sei sicuro di voler proseguire con la rimozione?\npremere 'y' per confermare\npremere 'n' per tornare al menu precedente", 'y', 'n');
+                                    if (confirm == 'n') break;
+
+                                    printNewLineAndTitle(titDelArtefatto);
+
+                                    SistemaDomotico.printListUnita(listaUnitaImmobiliari);
+                                    UnitaImmobiliari unitaSel = listaUnitaImmobiliari.get(chooseFromList("Selezionare l'unita' immobiliare dalla quale si vuole eliminare l'artefatto?", listaUnitaImmobiliari) - 1);
+
+                                    unitaSel.printArtefatti();
+                                    Artefatti artefattoSel = unitaSel.getListaArtefattiUnita().get(chooseFromList("Selezionare l'artefatto da rimuovere > ", unitaSel.getListaArtefattiUnita()));
+                                    removeController.deleteObject(unitaSel, artefattoSel);
+
+                                    printNewLineAndTitle(titEndDelArtefatto);
+                                }
+                                break;
+                            //rimuovi sensore
+                            case 10:
+                                if (sistemaDomotico.checkUnita() && listaSensori.size() > 0) {
+                                    confirm = chooseInsert("Sei sicuro di voler proseguire con la rimozione?\npremere 'y' per confermare\npremere 'n' per tornare al menu precedente", 'y', 'n');
+                                    if (confirm == 'n') break;
+
+                                    printNewLineAndTitle(titDelSensore);
+
+                                    SistemaDomotico.printListUnita(listaUnitaImmobiliari);
+                                    UnitaImmobiliari unitaSel = listaUnitaImmobiliari.get(chooseFromList("Selezionare l'unita' immobiliare dalla quale si vuole eliminare il sensore?", listaUnitaImmobiliari) - 1);
+
+                                    unitaSel.printSensori(unitaSel.getListaSensoriUnita());
+                                    Sensori sensoreSel = unitaSel.getListaSensoriUnita().get(chooseFromList("Selezionare il sensore da rimuovere > ", unitaSel.getListaSensoriUnita()));
+                                    removeController.deleteObject(unitaSel, sensoreSel);
+
+                                    printNewLineAndTitle(titEndDelSensore);
+                                }
+                                break;
+                            //rimuovi attuatore
+                            case 11:
+                                if (sistemaDomotico.checkUnita() && listaAttuatori.size() > 0) {
+                                    confirm = chooseInsert("Sei sicuro di voler proseguire con la rimozione?\npremere 'y' per confermare\npremere 'n' per tornare al menu precedente", 'y', 'n');
+                                    if (confirm == 'n') break;
+
+                                    printNewLineAndTitle(titDelAttuatore);
+
+                                    SistemaDomotico.printListUnita(listaUnitaImmobiliari);
+                                    UnitaImmobiliari unitaSel = listaUnitaImmobiliari.get(chooseFromList("Selezionare l'unita' immobiliare dalla quale si vuole eliminare l'attuatore?", listaUnitaImmobiliari) - 1);
+
+                                    unitaSel.printSensori(unitaSel.getListaSensoriUnita());
+                                    Attuatori attuatoreSel = unitaSel.getListaAttuatoriUnita().get(chooseFromList("Selezionare l'attuatore da rimuovere > ", unitaSel.getListaAttuatoriUnita()));
+                                    removeController.deleteObject(unitaSel, attuatoreSel);
+
+                                    printNewLineAndTitle(titEndDelAttuatore);
+                                }
+                                break;
+                            //rimuovi categoria sensore
+                            case 12:
+                                if (sistemaDomotico.checkUnita() && listaCategoriaSensori.size() > 0) {
+                                    confirm = chooseInsert("Sei sicuro di voler proseguire con la rimozione?\npremere 'y' per confermare\npremere 'n' per tornare al menu precedente", 'y', 'n');
+                                    if (confirm == 'n') break;
+
+                                    printNewLineAndTitle(titDelCatSens);
+
+                                    CategoriaSensori.printListCategoriaSensori(listaCategoriaSensori);
+                                    CategoriaSensori catSensoreSel = listaCategoriaSensori.get(chooseFromList("Selezionare la categoria da rimuovere > ", listaCategoriaSensori));
+                                    removeController.deleteObject(catSensoreSel);
+
+                                    printNewLineAndTitle(titEndDelCatSens);
+                                }
+                                break;
+                            //rimuovi categoria attuatore
+                            case 13:
+                                if (sistemaDomotico.checkUnita() && listaCategoriaAttuatori.size() > 0) {
+                                    confirm = chooseInsert("Sei sicuro di voler proseguire con la rimozione?\npremere 'y' per confermare\npremere 'n' per tornare al menu precedente", 'y', 'n');
+                                    if (confirm == 'n') break;
+
+                                    printNewLineAndTitle(titDelCatAtt);
+
+                                    CategoriaAttuatori.printListCategoriaAttuatori(listaCategoriaAttuatori);
+                                    CategoriaAttuatori catAttuatoreSel = listaCategoriaAttuatori.get(chooseFromList("Selezionare la categoria da rimuovere > ", listaCategoriaAttuatori));
+                                    removeController.deleteObject(catAttuatoreSel);
+
+                                    printNewLineAndTitle(titEndDelCatAtt);
+                                }
+                                break;
+
                         }
                         break;
-                    } while (!finishedManut);
+                    } while (finishedManut);
                     break;
 
                 case 2:
