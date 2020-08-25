@@ -26,6 +26,7 @@ public class Util implements StaticVariables {
 
     public static boolean isLengthOK(String name, int length){
         if(name.length()<=length) return true;
+        System.out.println("ATTENZIONE: la descrizione non può superare " + length + " caratteri!!!");
         return false;
     }
 
@@ -39,13 +40,35 @@ public class Util implements StaticVariables {
         System.out.println();
     }
 
-    public static String readString(String testo, List list){
+    public static String readString(String testo){
+        String nome;
+
+        do {
+            nome = InputDati.leggiStringa(testo);
+            System.out.println();
+        } while (!noSpace(nome) && !noBlank(nome));
+
+        return nome;
+    }
+
+    public static String readStringUnique(String testo, List list){
         String nome;
 
         do {
             nome = InputDati.leggiStringa(testo);
             System.out.println();
         } while (!noSpace(nome) && !noBlank(nome) || !isOne(nome, list));
+
+        return nome;
+    }
+
+    public static String readStringLength(String testo, int length){
+        String nome;
+
+        do {
+            nome = InputDati.leggiStringa(testo);
+            System.out.println();
+        } while (!noSpace(nome) && !noBlank(nome) || !isLengthOK(nome, length));
 
         return nome;
     }
@@ -59,6 +82,8 @@ public class Util implements StaticVariables {
             System.out.println(index + ") " + type.toString());
             index++;
         }
+
+        System.out.println();
     }
 
     public static int chooseFromList(String testo, List list){
@@ -78,15 +103,31 @@ public class Util implements StaticVariables {
         return true;
     }
 
-    public static char reinsert(String testo){
+    public static char chooseInsert(String testo, char c1, char c2){
         char confirm;
 
         do {
-            System.out.println("testo + \npremere 'y' per confermare\npremere 'n' per tornare al menu precedente");
+            System.out.println(testo);
             confirm = InputDati.leggiChar("Premere l'opzione desiderata > ");
             System.out.println();
-        } while (confirm != 'y' && confirm != 'n');
+        } while (confirm != c1 && confirm != c2);
 
         return confirm;
     }
+
+    public static int chooseInsertString(String testo, int max){
+        int confirm;
+
+        do {
+            System.out.println(testo);
+            confirm = InputDati.leggiIntero("Premere l'opzione desiderata > ");
+            if (confirm < 1 || confirm > max)
+                System.out.println("ATTENZIONE: l'opzione selezionata non è valida!!!");
+            System.out.println();
+        } while (confirm < 1 || confirm > max);
+
+        return confirm;
+    }
+
+
 }

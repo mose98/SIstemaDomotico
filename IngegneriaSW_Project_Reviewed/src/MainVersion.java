@@ -1,13 +1,11 @@
+import Control.CreateObject;
 import Control.StaticVariables;
-import Control.Util;
-import Model.UnitaImmobiliari;
+import Model.*;
 import mylib.*;
 
-import java.util.ArrayList;
-
-public class MainVersion extends Util implements StaticVariables {
+public class MainVersion extends CreateObject implements StaticVariables {
     public static void main(String[] args) {
-
+        SistemaDomotico sistemaDomotico = new SistemaDomotico();
         int scelta, sceltaManut, sceltaFruit, sceltaModOperativa;
         MyMenu menuIniziale;
         MyMenu menuManutentore;
@@ -40,158 +38,121 @@ public class MainVersion extends Util implements StaticVariables {
                                 scelta = menuIniziale.scegli();
                                 continue MENU;
 
-                            //creazione unita'  immobiliare
+                                //creazione unita'  immobiliare
                             case 1:
                                 printNewLineAndTitle(titNewUnita);
 
                                 do {
-                                    String nomeUnita = readString("Dai un nome all'unità immobiliare > ", listaNomiUnitaImmobiliari);
-
-                                    printTitleAndList("Tipologie di unita' immobiliari", tipologieUnitaImmobiliari);
-
-                                    int tipoUnita = chooseFromList("Scegliere il tipo di unita' immobiliare tra quelle proposte di sopra > ", tipologieUnitaImmobiliari) -1;
-
-                                    UnitaImmobiliari unita = new UnitaImmobiliari(nomeUnita, tipologieUnitaImmobiliari.get(tipoUnita));
+                                    UnitaImmobiliari unita = createUnitaImmobiliare();
 
                                     listaNomiUnitaImmobiliari.add(unita.getNome());
                                     listaUnitaImmobiliari.add(unita);
+                                    sistemaDomotico.getListUnitaImmobiliari().add(unita);
 
                                     printNewLineAndTitle(titEndNewUnita);
 
-                                    confirm = reinsert("Vuoi inserire un'altra unita' immobiliare?");
-                                    do {
-                                        System.out.println("Vuoi inserire un'altra unita'  immobiliare?\npremere 'y' per confermare\npremere 'n' per tornare al menu precedente");
-                                        confirm = InputDati.leggiChar("Premere l'opzione desiderata > ");
-                                        System.out.println();
-                                    } while (confirm != 'y' && confirm != 'n');
-
+                                    confirm = chooseInsert("Vuoi inserire una nuova unita' immobiliare?\npremere 'y' per confermare\npremere 'n' per tornare al menu precedente", 'y', 'n');
                                 } while (confirm == 'y');
                                 break;
                             //crea nuova categoria sensori
                             case 2:
-                                String nomeCatSens;
-                                String descrizioneCatSens;
-                                String nomeRilevazione;
-                                String unitamisuraSens;
-                                int minimo;
-                                int massimo;
-                                char chooseType;
-                                boolean type;
-                                String stringaDominio;
-                                Rilevazioni rilevazioneSens;
-
-                                System.out.println();
-                                System.out.println(titNewCatSens);
+                                printNewLineAndTitle(titNewCatSens);
 
                                 do {
-                                    listaNomiInfoRilevabili = new ArrayList<>();
-                                    listaInfoRilevabili = new ArrayList<>();
-
-                                    do {
-                                        nomeCatSens = InputDati.leggiStringa("Dai un nome alla categoria di sensori (senza spazi) > ");
-                                        System.out.println();
-                                    } while (isBlankorWhitespace(nomeCatSens) || !isUnivoque(listaNomiCategoriaSensori, nomeCatSens));
-
-                                    do {
-                                        descrizioneCatSens = InputDati.leggiStringa("Inserisci la descrizione > ");
-                                        if (descrizioneCatSens.length() > maxlength || descrizioneCatSens.isEmpty() || descrizioneCatSens.isBlank())
-                                            System.out.println("ATTENZIONE: la descrizione non può superare " + maxlength + " caratteri");
-                                        System.out.println();
-                                    } while (descrizioneCatSens.length() > maxlength || descrizioneCatSens.isEmpty() || descrizioneCatSens.isBlank());
-
-                                    do {
-                                        do {
-                                            nomeRilevazione = InputDati.leggiStringa("Inserisci l'informazione rilevabile dal sensore > ");
-                                            System.out.println();
-                                        } while (isBlankorWhitespace(nomeRilevazione) || !isUnivoque(listaNomiInfoRilevabili, nomeRilevazione));
-
-                                        listaNomiInfoRilevabili.add(nomeRilevazione);
-
-                                        do {
-                                            System.out.println("L'informazione rilevata e' numerica o non  numerica?\npremere '1' per la numerica\npremere '2' per non numerica");
-                                            chooseType = InputDati.leggiChar("Premere l'opzione desiderata > ");
-                                            System.out.println();
-                                        } while (chooseType != '1' && chooseType != '2');
-
-                                        if (chooseType == '1') {
-                                            type = true;
-
-                                            rilevazioneSens = new Rilevazioni(nomeRilevazione, type);
-
-                                            do {
-                                                unitamisuraSens = InputDati.leggiStringa("Inserisci l'unita'  di misura della rilevazione > ");
-                                                System.out.println();
-                                            } while (isBlankorWhitespace(unitamisuraSens));
-                                            rilevazioneSens.setUnitaMisura(unitamisuraSens);
-
-                                            minimo = InputDati.leggiIntero("Inserisci il minimo valore rilevabile dal sensore > ");
-                                            rilevazioneSens.setMinimo(minimo);
-
-                                            System.out.println();
-                                            do {
-                                                massimo = InputDati.leggiIntero("Inserisci il massimo valore rilevabile dal sensore > ");
-                                                System.out.println();
-                                            } while (massimo <= minimo);
-                                            rilevazioneSens.setMassimo(massimo);
-
-                                        } else {
-                                            type = false;
-
-                                            rilevazioneSens = new Rilevazioni(nomeRilevazione, type);
-
-                                            do {
-                                                do {
-                                                    stringaDominio = InputDati.leggiStringa("Aggiungi un' informazione al dominio rilevabile > ");
-                                                    System.out.println();
-                                                } while (isBlankorWhitespace(stringaDominio) || !isUnivoque(rilevazioneSens.getDominioValori(), stringaDominio));
-
-                                                rilevazioneSens.aggiungiDominioValori(stringaDominio);
-
-                                                do {
-                                                    System.out.println("Vuoi inserire un'altra variabile al dominio rilevabile?\npremere 'y' per confermare\npremere 'n' per tornare al menu precedente");
-                                                    confirm = InputDati.leggiChar("Premere l'opzione desiderata > ");
-                                                    System.out.println();
-                                                } while (confirm != 'y' && confirm != 'n');
-                                            } while (confirm == 'y');
-                                        }
-
-                                        listaInfoRilevabili.add(rilevazioneSens);
-
-                                        do {
-                                            System.out.println("Vuoi inserire un'altra informazione rilevabile?\npremere 'y' per confermare\npremere 'n' per tornare al menu precedente");
-                                            confirm = InputDati.leggiChar("Premere l'opzione desiderata > ");
-                                            System.out.println();
-                                        } while (confirm != 'y' && confirm != 'n');
-                                    } while (confirm == 'y');
-
-                                    CategoriaSensori categoriaSensore = new CategoriaSensori(nomeCatSens, descrizioneCatSens, listaInfoRilevabili);
-
-                                    System.out.println(titEndNewCatSens);
-                                    System.out.println();
+                                    CategoriaSensori categoriaSensore = createCategoriaSensore();
 
                                     listaNomiCategoriaSensori.add(categoriaSensore.getNome());
                                     listaCategoriaSensori.add(categoriaSensore);
                                     categorieSensoriRimanenti.add(categoriaSensore);
 
-                                    System.out.println();
-                                    System.out.println(titEndNewCatSens);
-                                    System.out.println();
+                                    printNewLineAndTitle(titEndNewCatSens);
 
-                                    index = 1;
-                                    System.out.println("CATEGORIE SENSORI GIA' CREATE");
-                                    for (CategoriaSensori sens : listaCategoriaSensori
-                                    ) {
-                                        System.out.println(index + ") " + sens.getNome() + ": " + sens.getDescrizione());
-                                        index++;
-                                    }
-                                    System.out.println();
+                                    CategoriaSensori.printListCategoriaSensori(listaCategoriaSensori);
+
+                                    confirm = chooseInsert("Vuoi inserire una nuova categoria di sensori?\npremere 'y' per confermare\npremere 'n' per tornare al menu precedente", 'y', 'n');
+                                } while (confirm == 'y');
+                                break;
+                            //crea nuova categoria attuatori
+                            case 3:
+                                printNewLineAndTitle(titNewCatAtt);
+
+                                do {
+                                    CategoriaAttuatori categoriaAttuatore = createCategoriaAttuatore();
+
+                                    listaCategoriaAttuatori.add(categoriaAttuatore);
+                                    listaNomiCategoriaAttuatori.add(categoriaAttuatore.getNome());
+                                    categorieAttuatoriRimanenti.add(categoriaAttuatore);
+
+                                    printNewLineAndTitle(titEndNewCatAtt);
+
+                                    CategoriaAttuatori.printListCategoriaAttuatori(listaCategoriaAttuatori);
+
+                                    confirm = chooseInsert("Vuoi inserire una nuova categoria di attuatori?\npremere 'y' per confermare\npremere 'n' per tornare al menu precedente", 'y', 'n');
+                                } while (confirm == 'y');
+                                break;
+                            //crea nuova stanza
+                            case 4:
+                                if (sistemaDomotico.checkUnita()) {
+                                    printNewLineAndTitle(titNewStanza);
 
                                     do {
-                                        System.out.println("Vuoi creare un' altra categoria?\npremere 'y' per confermare\npremere 'n' per tornare al menu precedente");
-                                        confirm = InputDati.leggiChar("Premere l'opzione desiderata > ");
-                                        System.out.println();
-                                    } while (confirm != 'y' && confirm != 'n');
-                                } while (confirm == 'y');
+                                        Stanze stanza = createStanza();
+
+                                        listaStanze.add(stanza);
+
+                                        printNewLineAndTitle(titEndNewStanza);
+
+                                        confirm = chooseInsert("Vuoi creare una nuova stanza?\npremere 'y' per confermare\npremere 'n' per tornare al menu precedente", 'y', 'n');
+                                    } while (confirm == 'y');
+                                }
+                                break;
+                            //crea nuovo artefatto
+                            case 5:
+                                if (sistemaDomotico.checkUnita()) {
+                                    printNewLineAndTitle(titNewArtefatto);
+
+                                    do {
+                                        Artefatti artefatto = createArtefatto();
+
+                                        listaArtefatti.add(artefatto);
+
+                                        printNewLineAndTitle(titEndNewArtefatto);
+
+                                        confirm = chooseInsert("Vuoi creare un nuovo artefatto?\npremere 'y' per confermare\npremere 'n' per tornare al menu precedente", 'y', 'n');
+                                    } while (confirm == 'y');
+                                }
+                                break;
+                            //crea nuovo sensore
+                            case 6:
+                                if (sistemaDomotico.checkUnita()) {
+                                    printNewLineAndTitle(titNewSensore);
+
+                                    do {
+                                        Sensori sensore = createSensore();
+
+                                        listaSensori.add(sensore);
+
+                                        printNewLineAndTitle(titEndNewSensore);
+
+                                        confirm = chooseInsert("Vuoi creare un nuovo sensore?\npremere 'y' per confermare\npremere 'n' per tornare al menu precedente", 'y', 'n');
+                                    } while (confirm == 'y');
+                                }
+                                break;
+                            //crea nuovo attuatore
+                            case 7:
+                                if (sistemaDomotico.checkUnita()) {
+                                    printNewLineAndTitle(titNewAttuatore);
+
+                                    do {
+                                        Attuatori attuatore = createAttuatore();
+
+                                        listaAttuatori.add(attuatore);
+
+                                        printNewLineAndTitle(titEndNewAttuatore);
+
+                                        confirm = chooseInsert("Vuoi creare un nuovo attuatore?\npremere 'y' per confermare\npremere 'n' per tornare al menu precedente", 'y', 'n');
+                                    } while (confirm == 'y');
+                                }
                                 break;
                         }
                         break;

@@ -3,12 +3,15 @@ package Control;
 import Model.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public interface StaticVariables {
-    List<String> tipologieUnitaImmobiliari = new ArrayList<String>();
-    List<CategoriaSensori> listaCategoriaSensori = new ArrayList<CategoriaSensori>();
+    List<String> tipologieUnitaImmobiliari = new ArrayList<>();
+    List<CategoriaSensori> listaCategoriaSensori = new ArrayList<>();
     List<String> listaNomiCategoriaSensori = new ArrayList<>();
+    List<String> listaTypeRilevazione = new ArrayList<>(
+            Arrays.asList("Numerica", "Non numerica"));
     List<CategoriaAttuatori> listaCategoriaAttuatori = new ArrayList<CategoriaAttuatori>();
     List<String> listaNomiCategoriaAttuatori = new ArrayList<>();
     List<Stanze> listaStanze = new ArrayList<>();
