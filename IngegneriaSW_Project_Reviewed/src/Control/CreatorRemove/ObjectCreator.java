@@ -1,6 +1,6 @@
 package Control.CreatorRemove;
 
-import Control.StaticVariables;
+import View.StaticVariables;
 import Model.*;
 
 import java.util.ArrayList;

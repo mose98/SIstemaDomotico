@@ -51,7 +51,7 @@ public class CategoriaAttuatori extends GenericInfo{
     public static void printListModalitaOperative(List<ModalitaOperative> listModalita){
         int index = 1;
         int indexP = 1;
-        System.out.println("MODALITA' OPERATIVE GIA' INSERITE");
+        System.out.println("MODALITA' OPERATIVE");
         for (ModalitaOperative mod : listModalita
         ) {
             System.out.println(index + ") " + mod.getNome());
@@ -68,7 +68,7 @@ public class CategoriaAttuatori extends GenericInfo{
 
     public static void printListCategoriaAttuatori(List<CategoriaAttuatori> listaCategoriaAttuatori){
         int index = 1;
-        System.out.println("CATEGORIE ATTUATORI GIA' CREATE");
+        System.out.println("CATEGORIE ATTUATORI");
         for (CategoriaAttuatori att : listaCategoriaAttuatori
         ) {
             System.out.println(index + ") " + att.getNome() + ": " + att.getDescrizione());
@@ -88,4 +88,12 @@ public class CategoriaAttuatori extends GenericInfo{
         System.out.println();
     }
 
+    public static boolean checkCategorieAttuatori(){
+        if (listaCategoriaAttuatori.size() > 0) return true;
+        else {
+            System.out.println("ATTENZIONE: la lista delle categorie attuatori e' vuota!!!");
+            System.out.println();
+            return false;
+        }
+    }
 }

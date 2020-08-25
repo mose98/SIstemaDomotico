@@ -1,6 +1,6 @@
 package Model;
 
-import Control.Util;
+import View.Util;
 import mylib.InputDati;
 
 import java.util.ArrayList;

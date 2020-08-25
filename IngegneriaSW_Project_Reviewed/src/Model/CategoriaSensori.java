@@ -1,6 +1,6 @@
 package Model;
 
-import Control.StaticVariables;
+import View.StaticVariables;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ public class CategoriaSensori extends GenericInfo implements StaticVariables {
 
     public static void printListCategoriaSensori(List<CategoriaSensori> listaCategoriaSensori){
         int index = 1;
-        System.out.println("CATEGORIE SENSORI GIA' CREATE");
+        System.out.println("CATEGORIE SENSORI");
         for (CategoriaSensori sens : listaCategoriaSensori
         ) {
             System.out.println(index + ") " + sens.getNome() + ": " + sens.getDescrizione());
@@ -36,6 +36,15 @@ public class CategoriaSensori extends GenericInfo implements StaticVariables {
             index++;
         }
         System.out.println();
+    }
+
+    public static boolean checkCategorieSensori(){
+        if (listaCategoriaSensori.size() > 0) return true;
+        else {
+            System.out.println("ATTENZIONE: la lista delle categorie sensori e' vuota!!!");
+            System.out.println();
+            return false;
+        }
     }
 
     @Override

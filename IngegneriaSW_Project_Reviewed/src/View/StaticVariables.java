@@ -1,5 +1,6 @@
-package Control;
+package View;
 
+import Control.Regole;
 import Model.*;
 
 import java.util.ArrayList;
@@ -10,8 +11,6 @@ public interface StaticVariables {
     List<String> tipologieUnitaImmobiliari = new ArrayList<>();
     List<CategoriaSensori> listaCategoriaSensori = new ArrayList<>();
     List<String> listaNomiCategoriaSensori = new ArrayList<>();
-    List<String> listaTypeRilevazione = new ArrayList<>(
-            Arrays.asList("Numerica", "Non numerica"));
     List<CategoriaAttuatori> listaCategoriaAttuatori = new ArrayList<CategoriaAttuatori>();
     List<String> listaNomiCategoriaAttuatori = new ArrayList<>();
     List<Stanze> listaStanze = new ArrayList<>();
@@ -63,6 +62,8 @@ public interface StaticVariables {
     String titDelCatAtt = "RIMOZIONE CATEGORIA ATTUATORE \n------------------------------------------------------";
     String titViewAllUnita = "VISUALIZZAZIONE UNITA' IMMOBILIARE \n------------------------------------------------------";
     String titViewSens = "VISUALIZZAZIONE LISTA SENSORI \n------------------------------------------------------";
+    String titViewCatSens = "VISUALIZZAZIONE LISTA CATEGORIE SENSORI \n------------------------------------------------------";
+    String titViewCatAtt = "VISUALIZZAZIONE LISTA CATEGORIE ATTUATORI \n------------------------------------------------------";
     String titViewAtt = "VISUALIZZAZIONE LISTA ATTUATORI \n------------------------------------------------------";
     String titViewSensValue = "VISUALIZZAZIONE VALORI SENSORI \n------------------------------------------------------";
     String titModAttValue = "ASSEGNAMENTO PARAMETRO ALLA MODALITA' OPERATIVA \n------------------------------------------------------";

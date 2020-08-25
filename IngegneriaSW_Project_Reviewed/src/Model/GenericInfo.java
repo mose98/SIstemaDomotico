@@ -1,6 +1,6 @@
 package Model;
 
-import Control.Util;
+import View.Util;
 
 public class GenericInfo extends Util {
     String nome;

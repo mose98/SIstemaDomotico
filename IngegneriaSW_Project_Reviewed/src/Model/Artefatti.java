@@ -1,6 +1,6 @@
 package Model;
 
-import Control.StaticVariables;
+import View.StaticVariables;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,5 +1,5 @@
 import Control.CreatorRemove.ObjectRemoval;
-import Control.StaticVariables;
+import View.StaticVariables;
 import Model.*;
 import mylib.*;
 
@@ -262,7 +262,71 @@ public class MainVersion implements StaticVariables {
                                     printNewLineAndTitle(titEndDelCatAtt);
                                 }
                                 break;
+                            //visualizza categorie sensori
+                            case 14:
+                                printNewLineAndTitle(titViewCatSens);
+                                if(CategoriaSensori.checkCategorieSensori()) CategoriaSensori.printListCategoriaSensori(listaCategoriaSensori);
+                                break;
+                            //visualizza categorie attuatori
+                            case 15:
+                                printNewLineAndTitle(titViewCatAtt);
+                                if(CategoriaAttuatori.checkCategorieAttuatori()) CategoriaAttuatori.printListCategoriaAttuatori(listaCategoriaAttuatori);
+                                break;
+                            //visualizza unita immobiliare
+                            case 16:
+                                int index=1;
+                                if(sistemaDomotico.checkUnita()){
+                                    for (UnitaImmobiliari unita: sistemaDomotico.getListUnitaImmobiliari()
+                                         ) {
+                                        System.out.println(index + ") " + unita.getNome().toUpperCase() + "     " + unita.getDescrizione());
+                                        unita.printStanze();
+                                        unita.printArtefatti();
+                                        UnitaImmobiliari.printSensori(unita.getListaSensoriUnita());
+                                        UnitaImmobiliari.printAttuatori(unita.getListaAttuatoriUnita());
 
+                                        System.out.println("---------------------------------------------------------------------------");
+                                    }
+                                }
+                            //visualizza sensori
+                            case 17:
+                                if(listaSensori.size()>0){
+                                    printNewLineAndTitle(titViewSens);
+                                    SistemaDomotico.printListUnita(listaUnitaImmobiliari);
+                                    UnitaImmobiliari unitaSel = listaUnitaImmobiliari.get(chooseFromList("Di che unita' immobiliare si desidera visualizzare i sensori?", listaUnitaImmobiliari)-1);
+
+                                    UnitaImmobiliari.printSensori(unitaSel.getListaSensoriUnita());
+                                }
+                                break;
+                            //visualizza attuatori
+                            case 18:
+                                if(listaAttuatori.size()>0){
+                                    printNewLineAndTitle(titViewAtt);
+                                    SistemaDomotico.printListUnita(listaUnitaImmobiliari);
+                                    UnitaImmobiliari unitaSel = listaUnitaImmobiliari.get(chooseFromList("Di che unita' immobiliare si desidera visualizzare gli attuatori?", listaUnitaImmobiliari)-1);
+
+                                    UnitaImmobiliari.printAttuatori(unitaSel.getListaAttuatoriUnita());
+                                }
+                                break;
+                            //visualizza artefatti
+                            case 19:
+                                if(listaArtefatti.size()>0){
+                                    printNewLineAndTitle(titViewListArt);
+                                    SistemaDomotico.printListUnita(listaUnitaImmobiliari);
+                                    UnitaImmobiliari unitaSel = listaUnitaImmobiliari.get(chooseFromList("Di che unita' immobiliare si desidera visualizzare gli artefatti?", listaUnitaImmobiliari)-1);
+
+                                    unitaSel.printArtefatti();
+                                }
+                                break;
+                            //visualizza stanze
+                            case 20:
+                                if(listaStanze.size()>0){
+                                    printNewLineAndTitle(titViewListStanze);
+                                    SistemaDomotico.printListUnita(listaUnitaImmobiliari);
+                                    UnitaImmobiliari unitaSel = listaUnitaImmobiliari.get(chooseFromList("Di che unita' immobiliare si desidera visualizzare le stanze?", listaUnitaImmobiliari)-1);
+
+                                    unitaSel.printStanze();
+                                }
+                                break;
                         }
                         break;
                     } while (finishedManut);

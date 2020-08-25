@@ -1,8 +1,7 @@
-package Control;
+package View;
 
 import mylib.InputDati;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Util implements StaticVariables {
