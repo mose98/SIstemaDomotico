@@ -1,2 +1,2 @@
-# SIstemaDomotico
+# SistemaDomotico
 Progetto Ingegneria del software
