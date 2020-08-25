@@ -5,6 +5,9 @@ import mylib.*;
 
 public class MainVersion extends CreateObject implements StaticVariables {
     public static void main(String[] args) {
+        tipologieUnitaImmobiliari.add("Privato");
+        tipologieUnitaImmobiliari.add("Commerciale");
+
         SistemaDomotico sistemaDomotico = new SistemaDomotico();
         int scelta, sceltaManut, sceltaFruit, sceltaModOperativa;
         MyMenu menuIniziale;

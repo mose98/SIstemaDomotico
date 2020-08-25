@@ -57,7 +57,7 @@ public class Util implements StaticVariables {
         do {
             nome = InputDati.leggiStringa(testo);
             System.out.println();
-        } while (!noSpace(nome) && !noBlank(nome) || !isOne(nome, list));
+        } while (!noSpace(nome) && !noBlank(nome) && !isOne(nome, list));
 
         return nome;
     }
