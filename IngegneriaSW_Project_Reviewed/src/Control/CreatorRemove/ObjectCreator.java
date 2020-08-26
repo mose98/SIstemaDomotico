@@ -1,8 +1,11 @@
 package Control.CreatorRemove;
 
+import Control.FileSaver;
 import View.StaticVariables;
 import Model.*;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,7 +80,7 @@ public class ObjectCreator extends GenericInfo implements StaticVariables {
         return categoriaAttuatore;
     }
 
-    public static Stanze createStanza(){
+    public static Stanze createStanza(String folderName) throws IOException {
         SistemaDomotico.printListUnita(listaUnitaImmobiliari);
         UnitaImmobiliari unitaSel = listaUnitaImmobiliari.get(chooseFromList("In che unita' immobiliare si desidera inserire la stanza?", listaUnitaImmobiliari)-1);
 
@@ -86,6 +89,11 @@ public class ObjectCreator extends GenericInfo implements StaticVariables {
         Stanze stanza = new Stanze(nomeStanza);
         stanza.setDescrizione(unitaSel.getNome());
         unitaSel.aggiungiStanza(stanza);
+
+        String folderUnitaName = folderName + File.separator + unitaSel.getNome() + "_" + unitaSel.getDescrizione();
+
+        FileSaver.createFolder(folderUnitaName + "/Stanze");
+        FileSaver.createFile(folderUnitaName + "/Stanze.txt");
 
         return stanza;
     }
