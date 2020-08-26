@@ -23,15 +23,7 @@ public class MainVersion implements StaticVariables {
         String folderName = "SistemaDomotico_" + sdf.format(date);
         String folderUnitaName;
         FileSaver.createFolder(folderName);
-        FileSaver.createFolder(folderName+"/Stanze");
-        FileSaver.createFolder(folderName+"/Stanze/Artefatti");
-        FileSaver.createFile(folderName+"/Stanze/Artefatti/Sensori.txt");
-        FileSaver.createFile(folderName+"/Stanze/Artefatti/Attuatori.txt");
-        FileSaver.createFile(folderName+"/ArtefattiEsterni.txt");
-        FileSaver.createFile(folderName+"/AttuatoriEsterni.txt");
-        FileSaver.createFile(folderName+"/SensoriEsterni.txt");
-        FileSaver.createFile(folderName+"/CategorieSensori.txt");
-        FileSaver.createFile(folderName+"/CategorieAttuatori.txt");
+
 
         ObjectRemoval removeController = new ObjectRemoval();
         SistemaDomotico sistemaDomotico = new SistemaDomotico();
@@ -83,15 +75,15 @@ public class MainVersion implements StaticVariables {
 
                                     folderUnitaName = folderName + File.separator + unita.getNome() + "_" + unita.getDescrizione();
                                     FileSaver.createFolder(folderUnitaName);
-                                    FileSaver.createFolder(folderUnitaName+"/Stanze");
-                                    FileSaver.createFolder(folderUnitaName+"/Stanze/Artefatti");
-                                    FileSaver.createFile(folderUnitaName+"/Stanze/Artefatti/Sensori.txt");
-                                    FileSaver.createFile(folderUnitaName+"/Stanze/Artefatti/Attuatori.txt");
-                                    FileSaver.createFile(folderUnitaName+"/ArtefattiEsterni.txt");
-                                    FileSaver.createFile(folderUnitaName+"/AttuatoriEsterni.txt");
-                                    FileSaver.createFile(folderUnitaName+"/SensoriEsterni.txt");
-                                    FileSaver.createFile(folderUnitaName+"/CategorieSensori.txt");
-                                    FileSaver.createFile(folderUnitaName+"/CategorieAttuatori.txt");
+                                    FileSaver.createFolder(folderUnitaName + "/Stanze");
+                                    FileSaver.createFolder(folderUnitaName + "/Stanze/Artefatti");
+                                    FileSaver.createFile(folderUnitaName + "/Stanze/Artefatti/Sensori.txt");
+                                    FileSaver.createFile(folderUnitaName + "/Stanze/Artefatti/Attuatori.txt");
+                                    FileSaver.createFile(folderUnitaName + "/ArtefattiEsterni.txt");
+                                    FileSaver.createFile(folderUnitaName + "/AttuatoriEsterni.txt");
+                                    FileSaver.createFile(folderUnitaName + "/SensoriEsterni.txt");
+                                    FileSaver.createFile(folderUnitaName + "/CategorieSensori.txt");
+                                    FileSaver.createFile(folderUnitaName + "/CategorieAttuatori.txt");
 
                                     confirm = chooseInsert("Vuoi inserire una nuova unita' immobiliare?\npremere 'y' per confermare\npremere 'n' per tornare al menu precedente", 'y', 'n');
                                 } while (confirm == 'y');
