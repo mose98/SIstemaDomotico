@@ -90,15 +90,17 @@ public class ObjectCreator extends GenericInfo implements StaticVariables {
         stanza.setDescrizione(unitaSel.getNome());
         unitaSel.aggiungiStanza(stanza);
 
-        String folderUnitaName = folderName + File.separator + unitaSel.getNome() + "_" + unitaSel.getDescrizione();
+        String folderUnitaName = folderName + File.separator + unitaSel.getNome();
 
-        FileSaver.createFolder(folderUnitaName + "/Stanze");
-        FileSaver.createFile(folderUnitaName + "/Stanze.txt");
+        FileSaver.createFolder(folderUnitaName + File.separator+nomeStanza);
+        FileSaver.createFile(folderUnitaName + "/Sensori.txt");
+        FileSaver.createFile(folderUnitaName + "/Attuatori.txt");
+        FileSaver.createFile(folderUnitaName + "/Artefatti.txt");
 
         return stanza;
     }
 
-    public static Artefatti createArtefatto(){
+    public static Artefatti createArtefatto(String folderName) throws IOException {
         int sceltaPosArtefatto;
         Artefatti artefatto = null;
 
@@ -121,6 +123,11 @@ public class ObjectCreator extends GenericInfo implements StaticVariables {
                 stanzaSel.aggiungiArtefatti(artefatto);
                 unitaSel.aggiungiArtefattoUnita(artefatto);
                 artefatto.setDescrizione(stanzaSel.getNome() + "(stanza)");
+
+                String folderUnitaName = folderName+File.separator+unitaSel.getNome()+File.separator+stanzaSel.getNome();
+                FileSaver.createFolder(folderUnitaName + File.separator+nomeArtefatto);
+                FileSaver.createFile(folderUnitaName + "/Sensori.txt");
+                FileSaver.createFile(folderUnitaName + "/Attuatori.txt");
             }
         }
         //inserimento sensore all'esterno
@@ -130,6 +137,11 @@ public class ObjectCreator extends GenericInfo implements StaticVariables {
             unitaSel.aggiungiArtefattoUnita(artefatto);
             artefatto.setDescrizione(unitaSel.getNome() + "(esterno)");
             unitaSel.aggiungiArtefattiEsterni(artefatto);
+
+            String folderUnitaName = folderName+File.separator+unitaSel.getNome();
+            FileSaver.createFolder(folderUnitaName + File.separator+nomeArtefatto);
+            FileSaver.createFile(folderUnitaName + "/Sensori.txt");
+            FileSaver.createFile(folderUnitaName + "/Attuatori.txt");
         }
 
         return artefatto;

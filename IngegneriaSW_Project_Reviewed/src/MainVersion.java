@@ -74,7 +74,7 @@ public class MainVersion implements StaticVariables {
 
                                     printNewLineAndTitle(titEndNewUnita);
 
-                                    folderUnitaName = folderName + File.separator + unita.getNome() + "_" + unita.getDescrizione();
+                                    folderUnitaName = folderName + File.separator + unita.getNome();
                                     FileSaver.createFolder(folderUnitaName);
                                     FileSaver.createFolder(folderUnitaName + "/Stanze.txt");
                                     FileSaver.createFile(folderUnitaName + "/ArtefattiEsterni.txt");
@@ -146,7 +146,7 @@ public class MainVersion implements StaticVariables {
                                     printNewLineAndTitle(titNewArtefatto);
 
                                     do {
-                                        Artefatti artefatto = createArtefatto();
+                                        Artefatti artefatto = createArtefatto(folderName);
 
                                         listaArtefatti.add(artefatto);
 
