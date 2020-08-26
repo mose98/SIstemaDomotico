@@ -21,8 +21,10 @@ public class MainVersion implements StaticVariables {
         DateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
         Date date = new Date();
         String folderName = "SistemaDomotico_" + sdf.format(date);
-        String folderUnitaName;
+        String folderUnitaName=null;
         FileSaver.createFolder(folderName);
+        FileSaver.createFolder(folderName + File.separator + "CategorieSensori");
+        FileSaver.createFolder(folderName + File.separator + "CategorieAttuatori");
         FileSaver.createFile(folderName + "/CategorieSensori.txt");
         FileSaver.createFile(folderName + "/CategorieAttuatori.txt");
 
@@ -89,15 +91,13 @@ public class MainVersion implements StaticVariables {
                                 printNewLineAndTitle(titNewCatSens);
 
                                 do {
-                                    CategoriaSensori categoriaSensore = createCategoriaSensore();
+                                    CategoriaSensori categoriaSensore = createCategoriaSensore(folderName + File.separator + "CategorieSensori");
 
                                     listaNomiCategoriaSensori.add(categoriaSensore.getNome());
                                     listaCategoriaSensori.add(categoriaSensore);
                                     categorieSensoriRimanenti.add(categoriaSensore);
 
                                     printNewLineAndTitle(titEndNewCatSens);
-
-                                    FileSaver.createFolder(folderName + File.separator + "CategorieSensori");
 
                                     CategoriaSensori.printListCategoriaSensori(listaCategoriaSensori);
 
@@ -109,15 +109,13 @@ public class MainVersion implements StaticVariables {
                                 printNewLineAndTitle(titNewCatAtt);
 
                                 do {
-                                    CategoriaAttuatori categoriaAttuatore = createCategoriaAttuatore();
+                                    CategoriaAttuatori categoriaAttuatore = createCategoriaAttuatore(folderName + File.separator + "CategorieAttuatori");
 
                                     listaCategoriaAttuatori.add(categoriaAttuatore);
                                     listaNomiCategoriaAttuatori.add(categoriaAttuatore.getNome());
                                     categorieAttuatoriRimanenti.add(categoriaAttuatore);
 
                                     printNewLineAndTitle(titEndNewCatAtt);
-
-                                    FileSaver.createFolder(folderName + File.separator + "CategorieAttuatori");
 
                                     CategoriaAttuatori.printListCategoriaAttuatori(listaCategoriaAttuatori);
 

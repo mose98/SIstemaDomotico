@@ -43,11 +43,11 @@ public class Rilevazioni extends Util{
             rilevazioneSens = new Rilevazioni(nome, false);
 
             do {
-                String stringaDominio = readStringUnique("Aggiungi un' informazione al dominio rilevabile > ", rilevazioneSens.getDominioValori());
+                String stringaDominio = readStringUnique("Aggiungi un valore al dominio rilevabile > ", rilevazioneSens.getDominioValori());
                 rilevazioneSens.aggiungiDominioValori(stringaDominio);
 
 
-                confirm = chooseInsert("Vuoi inserire un'altra unita' immobiliare?\npremere 'y' per confermare\npremere 'n' per tornare al menu precedente", 'y', 'n');
+                confirm = chooseInsert("Vuoi inserire un altro valore al domminio?\npremere 'y' per confermare\npremere 'n' per tornare al menu precedente", 'y', 'n');
             } while (confirm == 'y');
         }
 

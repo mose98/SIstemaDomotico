@@ -21,7 +21,7 @@ public class ObjectCreator extends GenericInfo implements StaticVariables {
         return unita;
     }
 
-    public static CategoriaSensori createCategoriaSensore(){
+    public static CategoriaSensori createCategoriaSensore(String folderName) throws IOException {
         char confirm;
         List<String> listaNomiInfoRilevabili = new ArrayList<>();
         List<Rilevazioni> listaInfoRilevabili = new ArrayList<>();
@@ -42,10 +42,13 @@ public class ObjectCreator extends GenericInfo implements StaticVariables {
 
         CategoriaSensori categoriaSensore = new CategoriaSensori(nomeCatSens, descrizioneCatSens, listaInfoRilevabili);
 
+        FileSaver.createFolder(folderName +File.separator+nomeCatSens);
+        FileSaver.createFile(folderName + File.separator+nomeCatSens+File.separator+"Rilevazioni.txt");
+
         return categoriaSensore;
     }
 
-    public static CategoriaAttuatori createCategoriaAttuatore(){
+    public static CategoriaAttuatori createCategoriaAttuatore(String folderName) throws IOException {
         List<String> listNomiModalita = new ArrayList<>();
         List<ModalitaOperative> listModalita = new ArrayList<>();
         char confirm;
@@ -53,17 +56,24 @@ public class ObjectCreator extends GenericInfo implements StaticVariables {
         String nomeCatAtt = readStringUnique("Dai un nome alla categoria di attuatori (senza spazi) > ", listaNomiCategoriaAttuatori);
         String descrizioneCatAtt = readStringLength("Inserisci la descrizione > ", maxlength);
 
+        FileSaver.createFolder(folderName+File.separator+nomeCatAtt);
+        FileSaver.createFile(folderName + File.separator+nomeCatAtt+File.separator+"ModalitaOperative.txt");
+
         do {
             List<String> listParam = new ArrayList<>();
 
             String nomeModOperativa=readStringUnique("Aggiungere una modalita' operativa all'attuatore > ", listNomiModalita);
+
+            FileSaver.createFolder(folderName + File.separator+nomeCatAtt+File.separator+nomeModOperativa);
 
             do {
                 String parametroModOperativa = readStringUnique("Aggiungere un parametro alla modalita' operativa dell'attuatore > ", listParam);
 
                 listParam.add(parametroModOperativa);
 
-                confirm = chooseInsert("Vuoi inserire un'altra modalità operativa?\npremere 'y' per confermare\npremere 'n' per tornare al menu precedente", 'y', 'n');
+                FileSaver.createFile(folderName + File.separator+nomeCatAtt+File.separator+nomeModOperativa+File.separator+parametroModOperativa);
+
+                confirm = chooseInsert("Vuoi inserire un altro parametro?\npremere 'y' per confermare\npremere 'n' per tornare al menu precedente", 'y', 'n');
             } while (confirm == 'y');
 
             ModalitaOperative modalita = new ModalitaOperative(nomeModOperativa, listParam);
@@ -82,7 +92,7 @@ public class ObjectCreator extends GenericInfo implements StaticVariables {
 
     public static Stanze createStanza(String folderName) throws IOException {
         SistemaDomotico.printListUnita(listaUnitaImmobiliari);
-        UnitaImmobiliari unitaSel = listaUnitaImmobiliari.get(chooseFromList("In che unita' immobiliare si desidera inserire la stanza?", listaUnitaImmobiliari)-1);
+        UnitaImmobiliari unitaSel = listaUnitaImmobiliari.get(chooseFromList("In che unita' immobiliare si desidera inserire la stanza? ", listaUnitaImmobiliari)-1);
 
         String nomeStanza = readString("Inserisci un nome alla stanza (senza spazi) > ");
 
@@ -105,7 +115,7 @@ public class ObjectCreator extends GenericInfo implements StaticVariables {
         Artefatti artefatto = null;
 
         SistemaDomotico.printListUnita(listaUnitaImmobiliari);
-        UnitaImmobiliari unitaSel = listaUnitaImmobiliari.get(chooseFromList("In che unita' immobiliare si desidera inserire l'artefatto?", listaUnitaImmobiliari)-1);
+        UnitaImmobiliari unitaSel = listaUnitaImmobiliari.get(chooseFromList("In che unita' immobiliare si desidera inserire l'artefatto? ", listaUnitaImmobiliari)-1);
 
         String nomeArtefatto = readString("Inserisci un nome dell'artefatto (senza spazi) > ");
 
@@ -116,7 +126,7 @@ public class ObjectCreator extends GenericInfo implements StaticVariables {
             if(unitaSel.checkStanze()){
                 unitaSel.printStanze();
 
-                Stanze stanzaSel = unitaSel.getListastanza().get(chooseFromList("In che stanza si desidera inserire il sensore?", unitaSel.getListastanza())-1);
+                Stanze stanzaSel = unitaSel.getListastanza().get(chooseFromList("In che stanza si desidera inserire il sensore? ", unitaSel.getListastanza())-1);
 
                 artefatto = new Artefatti(nomeArtefatto);
 
@@ -151,14 +161,14 @@ public class ObjectCreator extends GenericInfo implements StaticVariables {
         int sceltaPosSensore;
         Sensori sensore= null;
         SistemaDomotico.printListUnita(listaUnitaImmobiliari);
-        UnitaImmobiliari unitaSel = listaUnitaImmobiliari.get(chooseFromList("In che unita' immobiliare si desidera inserire il sensore?", listaUnitaImmobiliari)-1);
+        UnitaImmobiliari unitaSel = listaUnitaImmobiliari.get(chooseFromList("In che unita' immobiliare si desidera inserire il sensore? ", listaUnitaImmobiliari)-1);
 
         String nomeSensore = readString("Inserisci un nome del sensore (senza spazi) > ");
 
         CategoriaSensori.printListCategoriaSensoriRimanenti(categorieSensoriRimanenti);
         CategoriaSensori categoria = categorieSensoriRimanenti.get(chooseFromList("Assegnare il sensore ad una delle categorie dell'elenco precedente > ", categorieSensoriRimanenti)-1);
 
-        sceltaPosSensore = chooseInsertString("Scegliere dove posizionare il sensore?\n1) STANZA\n2) ARTEFATTO\n3)ESTERNO", 3);
+        sceltaPosSensore = chooseInsertString("Scegliere dove posizionare il sensore?\n1) STANZA\n2) ARTEFATTO\n3) ESTERNO", 3);
 
 
         //inserimento sensore in una stanza
@@ -166,7 +176,7 @@ public class ObjectCreator extends GenericInfo implements StaticVariables {
             if(unitaSel.checkStanze()){
                 unitaSel.printStanze();
 
-                Stanze stanzaSel = unitaSel.getListastanza().get(chooseFromList("In che stanza si desidera inserire il sensore?", unitaSel.getListastanza())-1);
+                Stanze stanzaSel = unitaSel.getListastanza().get(chooseFromList("In che stanza si desidera inserire il sensore? ", unitaSel.getListastanza())-1);
 
                 sensore = new Sensori(nomeSensore, categoria);
 
@@ -185,7 +195,7 @@ public class ObjectCreator extends GenericInfo implements StaticVariables {
             if(unitaSel.getListaArtefattiUnita().size()>0){
                 Artefatti.printArtefatti(unitaSel.getListaArtefattiUnita());
 
-                Artefatti artefattoSel = unitaSel.getListaArtefattiUnita().get(chooseFromList("In che artefatto si vuole applicare il sensore?", unitaSel.getListaArtefattiUnita()) - 1);
+                Artefatti artefattoSel = unitaSel.getListaArtefattiUnita().get(chooseFromList("In che artefatto si vuole applicare il sensore? ", unitaSel.getListaArtefattiUnita()) - 1);
 
                 sensore = new Sensori(nomeSensore, categoria);
 
@@ -220,14 +230,14 @@ public class ObjectCreator extends GenericInfo implements StaticVariables {
         int sceltaPosAttuatore;
         Attuatori attuatore = null;
         SistemaDomotico.printListUnita(listaUnitaImmobiliari);
-        UnitaImmobiliari unitaSel = listaUnitaImmobiliari.get(chooseFromList("In che unita' immobiliare si desidera inserire il attuatore?", listaUnitaImmobiliari)-1);
+        UnitaImmobiliari unitaSel = listaUnitaImmobiliari.get(chooseFromList("In che unita' immobiliare si desidera inserire il attuatore? ", listaUnitaImmobiliari)-1);
 
         String nomeAttuatore = readString("Inserisci un nome del attuatore (senza spazi) > ");
 
         CategoriaAttuatori.printListCategoriaAttuatoriRimanenti(categorieAttuatoriRimanenti);
         CategoriaAttuatori categoria = categorieAttuatoriRimanenti.get(chooseFromList("Assegnare l'attuatore ad una delle categorie dell'elenco precedente > ", categorieAttuatoriRimanenti)-1);
 
-        sceltaPosAttuatore = chooseInsertString("Scegliere dove posizionare l'attuatore?\n1) STANZA\n2) ARTEFATTO\n3)ESTERNO", 3);
+        sceltaPosAttuatore = chooseInsertString("Scegliere dove posizionare l'attuatore?\n1) STANZA\n2) ARTEFATTO\n3) ESTERNO", 3);
 
 
         //inserimento attuatore in una stanza
@@ -235,7 +245,7 @@ public class ObjectCreator extends GenericInfo implements StaticVariables {
             if(unitaSel.checkStanze()){
                 unitaSel.printStanze();
 
-                Stanze stanzaSel = unitaSel.getListastanza().get(chooseFromList("In che stanza si desidera inserire l'attuatore?", unitaSel.getListastanza())-1);
+                Stanze stanzaSel = unitaSel.getListastanza().get(chooseFromList("In che stanza si desidera inserire l'attuatore? ", unitaSel.getListastanza())-1);
 
                 attuatore = new Attuatori(nomeAttuatore, categoria);
 

@@ -13,6 +13,7 @@ public class Util implements StaticVariables {
     public static boolean isOne(Object object, List list){
         if(!list.contains(object.toString())) {
             System.out.println(duplicatedErrorMsg);
+            printNewLine();
             return true;
         }
         return false;
@@ -26,6 +27,7 @@ public class Util implements StaticVariables {
     public static boolean isLengthOK(String name, int length){
         if(name.length()<=length) return true;
         System.out.println("ATTENZIONE: la descrizione non può superare " + length + " caratteri!!!");
+        printNewLine();
         return false;
     }
 
@@ -90,8 +92,13 @@ public class Util implements StaticVariables {
 
         do{
             scelta=InputDati.leggiIntero(testo);
-            if(isInList(scelta, list)) System.out.println("ATTENZIONE: l'opzione selezionata non è presente nella lista!!!");
+            if(!isInList(scelta, list)) {
+                System.out.println("ATTENZIONE: l'opzione selezionata non è presente nella lista!!!");
+                printNewLine();
+            }
         }while(scelta < 1 || scelta > list.size());
+
+        printNewLine();
 
         return scelta;
     }
