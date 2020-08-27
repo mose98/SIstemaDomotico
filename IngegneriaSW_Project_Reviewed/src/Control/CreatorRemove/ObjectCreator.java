@@ -6,10 +6,16 @@ import Model.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ObjectCreator extends GenericInfo implements StaticVariables {
+    static int indexStanze=1;
+    static int indexArtefatti=1;
+    public static final String SYS_PROPERTY_TMPDIR = "java.io.tmpdir";
+    public static String wPath = System.getProperty(SYS_PROPERTY_TMPDIR);
 
     public static UnitaImmobiliari createUnitaImmobiliare(){
         String nomeUnita = readStringUnique("Dai un nome all'unità immobiliare > ", listaNomiUnitaImmobiliari);
@@ -102,7 +108,8 @@ public class ObjectCreator extends GenericInfo implements StaticVariables {
 
         String folderUnitaName = folderName + File.separator + unitaSel.getNome();
 
-        FileSaver.createFolder(folderUnitaName + File.separator+nomeStanza);
+        if(Files.exists(Path.of(wPath + File.separator + folderUnitaName))) FileSaver.createFolder(folderUnitaName + File.separator+nomeStanza+"_"+indexStanze++);
+        else FileSaver.createFolder(folderUnitaName + File.separator+nomeStanza);
         FileSaver.createFile(folderUnitaName + "/Sensori.txt");
         FileSaver.createFile(folderUnitaName + "/Attuatori.txt");
         FileSaver.createFile(folderUnitaName + "/Artefatti.txt");
@@ -135,7 +142,8 @@ public class ObjectCreator extends GenericInfo implements StaticVariables {
                 artefatto.setDescrizione(stanzaSel.getNome() + "(stanza)");
 
                 String folderUnitaName = folderName+File.separator+unitaSel.getNome()+File.separator+stanzaSel.getNome();
-                FileSaver.createFolder(folderUnitaName + File.separator+nomeArtefatto);
+                if(Files.exists(Path.of(wPath + File.separator + folderUnitaName))) FileSaver.createFolder(folderUnitaName + File.separator+nomeArtefatto+"_"+indexArtefatti++);
+                else FileSaver.createFolder(folderUnitaName + File.separator+nomeArtefatto);
                 FileSaver.createFile(folderUnitaName + "/Sensori.txt");
                 FileSaver.createFile(folderUnitaName + "/Attuatori.txt");
             }
@@ -149,7 +157,8 @@ public class ObjectCreator extends GenericInfo implements StaticVariables {
             unitaSel.aggiungiArtefattiEsterni(artefatto);
 
             String folderUnitaName = folderName+File.separator+unitaSel.getNome();
-            FileSaver.createFolder(folderUnitaName + File.separator+nomeArtefatto);
+            if(Files.exists(Path.of(wPath + File.separator + folderUnitaName))) FileSaver.createFolder(folderUnitaName + File.separator+nomeArtefatto+"_"+indexArtefatti++);
+            else FileSaver.createFolder(folderUnitaName + File.separator+nomeArtefatto);
             FileSaver.createFile(folderUnitaName + "/Sensori.txt");
             FileSaver.createFile(folderUnitaName + "/Attuatori.txt");
         }
