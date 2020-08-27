@@ -35,21 +35,26 @@ public class ObjectCreator extends GenericInfo implements StaticVariables {
         String nomeCatSens = readStringUnique("Dai un nome alla categoria di sensori (senza spazii) > ", listaNomiCategoriaSensori);
         String descrizioneCatSens = readStringLength("Inserisci la descrizione > ", maxlength);
 
+        FileSaver.createFolder(folderName +File.separator+nomeCatSens);
+        FileSaver.createFile(folderName + File.separator+nomeCatSens+File.separator+"Rilevazioni.txt");
+
+        Rilevazioni rilevazione;
         do {
             String nomeRilevazione=readStringUnique("Inserisci l'informazione rilevabile dal sensore > ", listaNomiInfoRilevabili);
             listaNomiInfoRilevabili.add(nomeRilevazione);
 
             char chooseType=chooseInsert("L'informazione rilevata e' numerica o non  numerica?\npremere '1' per la numerica\npremere '2' per non numerica", '1', '2');
 
-            listaInfoRilevabili.add(Rilevazioni.newRilevazione(chooseType, nomeRilevazione));
+            rilevazione = Rilevazioni.newRilevazione(chooseType, nomeRilevazione);
+            listaInfoRilevabili.add(rilevazione);
+
+            if(rilevazione.getNumerica()) FileSaver.newRilevazioneFile(folderName+ File.separator+nomeCatSens+File.separator+"Rilevazioni.txt",rilevazione.getNome(), rilevazione.getNumerica(), null,rilevazione.getUnitaMisura(), rilevazione.getMinimo(), rilevazione.getMassimo());
+            else FileSaver.newRilevazioneFile(folderName+ File.separator+nomeCatSens+File.separator+"Rilevazioni.txt",rilevazione.getNome(), rilevazione.getNumerica(), listaNomiInfoRilevabili,null, null, null);
 
             confirm = chooseInsert("Vuoi inserire un'altra informazione rilevabile dal sensore?\npremere 'y' per confermare\npremere 'n' per tornare al menu precedente", 'y', 'n');
         } while (confirm == 'y');
 
         CategoriaSensori categoriaSensore = new CategoriaSensori(nomeCatSens, descrizioneCatSens, listaInfoRilevabili);
-
-        FileSaver.createFolder(folderName +File.separator+nomeCatSens);
-        FileSaver.createFile(folderName + File.separator+nomeCatSens+File.separator+"Rilevazioni.txt");
 
         return categoriaSensore;
     }

@@ -26,7 +26,8 @@ public interface StaticVariables {
     List<String> listaRegoleApplicate = new ArrayList<>();
     List<String> listaRegoleFormat = new ArrayList<>();
     int maxlength = 80;
-
+    String SYS_PROPERTY_TMPDIR = "java.io.tmpdir";
+    String wPath = System.getProperty(SYS_PROPERTY_TMPDIR);
     String blankSPaceErrorMsg = "ATTENZIONE: LA STRINGA NON PUO' ESSERE VUOTA E NON PUO' CONTENERE SPAZI";
     String duplicatedErrorMsg = "ATTENZIONE: IL NOME INSERITO E' GIA' PRESENTE NELLA LISTA";
     String[] vociMenuI = new String[]{"MODALITA' MANUTENTORE", "MODALITA' FRUITORE"};

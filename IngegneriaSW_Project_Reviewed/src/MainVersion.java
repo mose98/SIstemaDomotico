@@ -101,6 +101,8 @@ public class MainVersion implements StaticVariables {
 
                                     CategoriaSensori.printListCategoriaSensori(listaCategoriaSensori);
 
+                                    FileSaver.newCatSensFile(wPath+File.separator+folderName+File.separator+"CategorieSensori.txt", categoriaSensore.getNome(), categoriaSensore.getDescrizione());
+
                                     confirm = chooseInsert("Vuoi inserire una nuova categoria di sensori?\npremere 'y' per confermare\npremere 'n' per tornare al menu precedente", 'y', 'n');
                                 } while (confirm == 'y');
                                 break;
