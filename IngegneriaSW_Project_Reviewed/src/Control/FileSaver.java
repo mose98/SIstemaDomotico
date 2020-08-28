@@ -66,12 +66,16 @@ public class FileSaver {
     }
 
     public static void write(String fileName, String line){
+        PrintWriter out=null;
         try {
-            PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(fileName, true)));
+            FileWriter writer = new FileWriter(fileName, true);
+            out = new PrintWriter(writer);
             out.println(line);
-            out.close();
         } catch (IOException e) {
             //exception handling left as an exercise for the reader
+        }
+        finally {
+            if(out!=null) out.close();
         }
     }
 }
