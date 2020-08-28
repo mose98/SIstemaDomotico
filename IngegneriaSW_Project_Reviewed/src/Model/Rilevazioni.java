@@ -39,8 +39,6 @@ public class Rilevazioni extends Util{
                 System.out.println();
             } while (massimo <= minimo);
             rilevazioneSens.setMassimo(massimo);
-
-
         } else {
             char confirm;
             rilevazioneSens = new Rilevazioni(nome, false);
@@ -48,7 +46,6 @@ public class Rilevazioni extends Util{
             do {
                 String stringaDominio = readStringUnique("Aggiungi un valore al dominio rilevabile > ", rilevazioneSens.getDominioValori());
                 rilevazioneSens.aggiungiDominioValori(stringaDominio);
-
 
                 confirm = chooseInsert("Vuoi inserire un altro valore al domminio?\npremere 'y' per confermare\npremere 'n' per tornare al menu precedente", 'y', 'n');
             } while (confirm == 'y');

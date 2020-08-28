@@ -91,7 +91,7 @@ public class MainVersion implements StaticVariables {
                                 printNewLineAndTitle(titNewCatSens);
 
                                 do {
-                                    CategoriaSensori categoriaSensore = createCategoriaSensore(folderName + File.separator + "CategorieSensori");
+                                    CategoriaSensori categoriaSensore = createCategoriaSensore(wPath+File.separator+folderName + File.separator + "CategorieSensori");
 
                                     listaNomiCategoriaSensori.add(categoriaSensore.getNome());
                                     listaCategoriaSensori.add(categoriaSensore);
@@ -111,7 +111,7 @@ public class MainVersion implements StaticVariables {
                                 printNewLineAndTitle(titNewCatAtt);
 
                                 do {
-                                    CategoriaAttuatori categoriaAttuatore = createCategoriaAttuatore(folderName + File.separator + "CategorieAttuatori");
+                                    CategoriaAttuatori categoriaAttuatore = createCategoriaAttuatore(wPath+File.separator+folderName + File.separator + "CategorieAttuatori");
 
                                     listaCategoriaAttuatori.add(categoriaAttuatore);
                                     listaNomiCategoriaAttuatori.add(categoriaAttuatore.getNome());

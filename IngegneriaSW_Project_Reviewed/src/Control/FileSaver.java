@@ -1,9 +1,12 @@
 package Control;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.Arrays;
 import java.util.List;
 
 import static View.StaticVariables.wPath;
@@ -66,16 +69,12 @@ public class FileSaver {
     }
 
     public static void write(String fileName, String line){
-        PrintWriter out=null;
         try {
-            FileWriter writer = new FileWriter(fileName, true);
-            out = new PrintWriter(writer);
-            out.println(line);
-        } catch (IOException e) {
-            //exception handling left as an exercise for the reader
-        }
-        finally {
-            if(out!=null) out.close();
+            final Path path = Paths.get(fileName);
+            Files.write(path, Arrays.asList(line), StandardCharsets.UTF_8,
+                    Files.exists(path) ? StandardOpenOption.APPEND : StandardOpenOption.CREATE);
+        } catch (final IOException ioe) {
+            // Add your own exception handling...
         }
     }
 }
