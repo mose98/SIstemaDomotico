@@ -6,8 +6,6 @@ public class GenericInfo extends Util {
     String nome;
     String descrizione;
 
-
-
     public String getNome() {
         return nome;
     }

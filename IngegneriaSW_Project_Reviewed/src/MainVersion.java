@@ -78,7 +78,7 @@ public class MainVersion implements StaticVariables {
 
                                     folderUnitaName = folderName + File.separator + unita.getNome();
                                     FileSaver.createFolder(folderUnitaName);
-                                    FileSaver.createFolder(folderUnitaName + "/Stanze.txt");
+                                    FileSaver.createFile(folderUnitaName + "/Stanze.txt");
                                     FileSaver.createFile(folderUnitaName + "/ArtefattiEsterni.txt");
                                     FileSaver.createFile(folderUnitaName + "/AttuatoriEsterni.txt");
                                     FileSaver.createFile(folderUnitaName + "/SensoriEsterni.txt");
@@ -91,7 +91,7 @@ public class MainVersion implements StaticVariables {
                                 printNewLineAndTitle(titNewCatSens);
 
                                 do {
-                                    CategoriaSensori categoriaSensore = createCategoriaSensore(wPath+File.separator+folderName + File.separator + "CategorieSensori");
+                                    CategoriaSensori categoriaSensore = createCategoriaSensore(folderName + File.separator + "CategorieSensori");
 
                                     listaNomiCategoriaSensori.add(categoriaSensore.getNome());
                                     listaCategoriaSensori.add(categoriaSensore);
@@ -111,7 +111,7 @@ public class MainVersion implements StaticVariables {
                                 printNewLineAndTitle(titNewCatAtt);
 
                                 do {
-                                    CategoriaAttuatori categoriaAttuatore = createCategoriaAttuatore(wPath+File.separator+folderName + File.separator + "CategorieAttuatori");
+                                    CategoriaAttuatori categoriaAttuatore = createCategoriaAttuatore(folderName + File.separator + "CategorieAttuatori");
 
                                     listaCategoriaAttuatori.add(categoriaAttuatore);
                                     listaNomiCategoriaAttuatori.add(categoriaAttuatore.getNome());
@@ -120,6 +120,8 @@ public class MainVersion implements StaticVariables {
                                     printNewLineAndTitle(titEndNewCatAtt);
 
                                     CategoriaAttuatori.printListCategoriaAttuatori(listaCategoriaAttuatori);
+
+                                    FileSaver.newCatAttFile(wPath+File.separator+folderName+File.separator+"CategorieAttuatori.txt", categoriaAttuatore.getNome(), categoriaAttuatore.getDescrizione());
 
                                     confirm = chooseInsert("Vuoi inserire una nuova categoria di attuatori?\npremere 'y' per confermare\npremere 'n' per tornare al menu precedente", 'y', 'n');
                                 } while (confirm == 'y');
@@ -162,9 +164,9 @@ public class MainVersion implements StaticVariables {
                                     printNewLineAndTitle(titNewSensore);
 
                                     do {
-                                        Sensori sensore = createSensore();
+                                        Sensori sensore = createSensore(folderName);
 
-                                        listaSensori.add(sensore);
+                                        if(sensore!=null) listaSensori.add(sensore);
 
                                         printNewLineAndTitle(titEndNewSensore);
 
@@ -178,9 +180,9 @@ public class MainVersion implements StaticVariables {
                                     printNewLineAndTitle(titNewAttuatore);
 
                                     do {
-                                        Attuatori attuatore = createAttuatore();
+                                        Attuatori attuatore = createAttuatore(folderName);
 
-                                        listaAttuatori.add(attuatore);
+                                        if(attuatore!=null) listaAttuatori.add(attuatore);
 
                                         printNewLineAndTitle(titEndNewAttuatore);
 

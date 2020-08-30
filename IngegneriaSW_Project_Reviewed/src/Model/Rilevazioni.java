@@ -32,7 +32,7 @@ public class Rilevazioni extends Util{
 
             int minimo = InputDati.leggiIntero("Inserisci il minimo valore rilevabile dal sensore > ");
             rilevazioneSens.setMinimo(minimo);
-
+            printNewLine();
             int massimo;
             do {
                 massimo = InputDati.leggiIntero("Inserisci il massimo valore rilevabile dal sensore > ");
