@@ -1,5 +1,6 @@
-package View;
+package Control;
 
+import View.StaticVariables;
 import mylib.InputDati;
 
 import java.util.List;

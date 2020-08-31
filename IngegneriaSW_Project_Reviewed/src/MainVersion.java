@@ -1,5 +1,6 @@
 import Control.CreatorRemove.ObjectRemoval;
 import Control.FileSaver;
+import Control.ImportClass;
 import View.StaticVariables;
 import Model.*;
 import mylib.*;
@@ -358,6 +359,21 @@ public class MainVersion implements StaticVariables {
 
                                     unitaSel.printStanze();
                                 }
+                                break;
+                            //importa categoria sensore
+                            case 21:
+                                if(listaCategoriaSensori.size()>0){
+                                    ImportClass.importCatSens(folderName);
+                                }
+                                break;
+                            //importa categoria attuatore
+                            case 22:
+                                if(listaCategoriaAttuatori.size()>0){
+                                    ImportClass.importCatAtt(folderName);
+                                }
+                                break;
+                            //importa unità immobiliare
+                            case 23:
                                 break;
                         }
                         break;
