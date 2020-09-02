@@ -22,7 +22,7 @@ public class MainVersion implements StaticVariables {
         DateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
         Date date = new Date();
         String folderName = "SistemaDomotico_" + sdf.format(date);
-        String folderUnitaName=null;
+        String folderUnitaName = null;
         FileSaver.createFolder(folderName);
         FileSaver.createFolder(folderName + File.separator + "CategorieSensori");
         FileSaver.createFolder(folderName + File.separator + "CategorieAttuatori");
@@ -102,7 +102,7 @@ public class MainVersion implements StaticVariables {
 
                                     CategoriaSensori.printListCategoriaSensori(listaCategoriaSensori);
 
-                                    FileSaver.newCatSensFile(wPath+File.separator+folderName+File.separator+"CategorieSensori.txt", categoriaSensore.getNome(), categoriaSensore.getDescrizione());
+                                    FileSaver.newCatSensFile(wPath + File.separator + folderName + File.separator + "CategorieSensori.txt", categoriaSensore.getNome(), categoriaSensore.getDescrizione());
 
                                     confirm = chooseInsert("Vuoi inserire una nuova categoria di sensori?\npremere 'y' per confermare\npremere 'n' per tornare al menu precedente", 'y', 'n');
                                 } while (confirm == 'y');
@@ -122,7 +122,7 @@ public class MainVersion implements StaticVariables {
 
                                     CategoriaAttuatori.printListCategoriaAttuatori(listaCategoriaAttuatori);
 
-                                    FileSaver.newCatAttFile(wPath+File.separator+folderName+File.separator+"CategorieAttuatori.txt", categoriaAttuatore.getNome(), categoriaAttuatore.getDescrizione());
+                                    FileSaver.newCatAttFile(wPath + File.separator + folderName + File.separator + "CategorieAttuatori.txt", categoriaAttuatore.getNome(), categoriaAttuatore.getDescrizione());
 
                                     confirm = chooseInsert("Vuoi inserire una nuova categoria di attuatori?\npremere 'y' per confermare\npremere 'n' per tornare al menu precedente", 'y', 'n');
                                 } while (confirm == 'y');
@@ -167,7 +167,7 @@ public class MainVersion implements StaticVariables {
                                     do {
                                         Sensori sensore = createSensore(folderName);
 
-                                        if(sensore!=null) listaSensori.add(sensore);
+                                        if (sensore != null) listaSensori.add(sensore);
 
                                         printNewLineAndTitle(titEndNewSensore);
 
@@ -183,7 +183,7 @@ public class MainVersion implements StaticVariables {
                                     do {
                                         Attuatori attuatore = createAttuatore(folderName);
 
-                                        if(attuatore!=null) listaAttuatori.add(attuatore);
+                                        if (attuatore != null) listaAttuatori.add(attuatore);
 
                                         printNewLineAndTitle(titEndNewAttuatore);
 
@@ -362,18 +362,15 @@ public class MainVersion implements StaticVariables {
                                 break;
                             //importa categoria sensore
                             case 21:
-                                if(listaCategoriaSensori.size()>0){
-                                    ImportClass.importCatSens(folderName);
-                                }
+                                listaCategoriaSensori.add(ImportClass.importCatSens(folderName));
                                 break;
                             //importa categoria attuatore
                             case 22:
-                                if(listaCategoriaAttuatori.size()>0){
-                                    ImportClass.importCatAtt(folderName);
-                                }
+                                listaCategoriaAttuatori.add(ImportClass.importCatAtt(folderName));
                                 break;
                             //importa unità immobiliare
                             case 23:
+                                listaUnitaImmobiliari.add(ImportClass.importUnita(folderName));
                                 break;
                         }
                         break;

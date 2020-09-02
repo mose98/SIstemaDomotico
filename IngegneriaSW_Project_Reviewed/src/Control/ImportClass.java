@@ -1,7 +1,6 @@
 package Control;
 
-import Model.CategoriaSensori;
-import Model.Rilevazioni;
+import Model.*;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -54,7 +53,10 @@ public class ImportClass extends Util {
         return c;
     }
 
-    public static CategoriaSensori importCatAtt(String folderUnita){
+    public static CategoriaAttuatori importCatAtt(String folderUnita){
+        List<String> listaParametri = new ArrayList<>();
+        String nomeMod=null;
+        List<ModalitaOperative> listMod = new ArrayList<>();
         List<String> listCatAtt = FileSaver.readFile(wPath+ File.separator+folderUnita+"/CategorieSAttuatori.txt");
 
         printTitleAndList("Categorie di attuatori importabili", listCatAtt);
@@ -71,31 +73,32 @@ public class ImportClass extends Util {
         ) {
             if(p.getFileName().toString()==nome) folderPath=p.toString();
         }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        List<String> stringRil= FileSaver.readFile(folderPath);
-        Rilevazioni r;
-        List<Rilevazioni> listRil= new ArrayList<>();
 
-        for (String s:stringRil
-        ) {
-            if(s.split(",")[1]=="true"){
-                r = new Rilevazioni(s.split(",")[0], Boolean.parseBoolean(s.split(",")[1]));
-                r.setUnitaMisura(s.split(",")[2]);
-                r.setMassimo(Integer.parseInt(s.split(",")[3]));
-                r.setMinimo(Integer.parseInt(s.split(",")[4]));
+        File f1 = new File(folderPath);
+        List<Path> xx1 = FileSaver.displayDirectoryContents(f1);
 
+        for (Path p: xx1
+             ) {
+            File x = new File(p.toString());
+            if(x.isDirectory()){
+                nomeMod=x.getName();
             }
-            else{
-                r = new Rilevazioni(s.split(",")[0], Boolean.parseBoolean(s.split(",")[1]));
-                for(int i=2; i<s.split(",").length;i++){
-                    r.aggiungiDominioValori(s.split(",")[i]);
-                }
+            if(x.isFile()) listaParametri=FileSaver.readFile(folderPath+File.separator+nome);
+
+            if(nomeMod!=null && listaParametri.size()>0){
+                ModalitaOperative mod = new ModalitaOperative(nomeMod, listaParametri);
+                listMod.add(mod);
             }
-            listRil.add(r);
         }
 
-        CategoriaSensori c = new CategoriaSensori(nome, descrizione, listRil);
+        CategoriaAttuatori cat = new CategoriaAttuatori(nome, descrizione, listMod);
 
-        return c;
+        return cat;
+    }
+
+    public static UnitaImmobiliari importUnita(String folderName){
+        UnitaImmobiliari unita=null;
+
+        return unita;
     }
 }

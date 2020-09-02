@@ -130,6 +130,8 @@ public class ObjectCreator extends GenericInfo implements StaticVariables {
         FileSaver.createFile(folderUnitaName + File.separator + nomeStanza + "/Attuatori.txt");
         FileSaver.createFile(folderUnitaName + File.separator + nomeStanza + "/Artefatti.txt");
 
+        unitaSel.aggiungiStanza(stanza);
+
         return stanza;
     }
 
@@ -183,6 +185,7 @@ public class ObjectCreator extends GenericInfo implements StaticVariables {
             FileSaver.newArtefatto(wPath+File.separator+folderUnitaName+"/ArtefattiEsterni.txt", nomeArtefatto);
         }
 
+        unitaSel.aggiungiArtefattoUnita(artefatto);
         return artefatto;
     }
 
