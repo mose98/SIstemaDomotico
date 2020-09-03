@@ -24,6 +24,9 @@ public class ObjectCreator extends GenericInfo implements StaticVariables {
         int tipoUnita = chooseFromList("Scegliere il tipo di unita' immobiliare tra quelle proposte di sopra > ", tipologieUnitaImmobiliari) - 1;
         UnitaImmobiliari unita = new UnitaImmobiliari(nomeUnita, tipologieUnitaImmobiliari.get(tipoUnita));
 
+        listaNomiUnitaImmobiliari.add(unita.getNome());
+        listaUnitaImmobiliari.add(unita);
+
         return unita;
     }
 
@@ -64,6 +67,10 @@ public class ObjectCreator extends GenericInfo implements StaticVariables {
         } while (confirm == 'y');
 
         CategoriaSensori categoriaSensore = new CategoriaSensori(nomeCatSens, descrizioneCatSens, listaInfoRilevabili);
+
+        listaNomiCategoriaSensori.add(categoriaSensore.getNome());
+        listaCategoriaSensori.add(categoriaSensore);
+        categorieSensoriRimanenti.add(categoriaSensore);
 
         return categoriaSensore;
     }
@@ -107,6 +114,10 @@ public class ObjectCreator extends GenericInfo implements StaticVariables {
 
         CategoriaAttuatori categoriaAttuatore = new CategoriaAttuatori(nomeCatAtt, descrizioneCatAtt, listModalita);
 
+        listaCategoriaAttuatori.add(categoriaAttuatore);
+        listaNomiCategoriaAttuatori.add(categoriaAttuatore.getNome());
+        categorieAttuatoriRimanenti.add(categoriaAttuatore);
+
         return categoriaAttuatore;
     }
 
@@ -131,6 +142,7 @@ public class ObjectCreator extends GenericInfo implements StaticVariables {
         FileSaver.createFile(folderUnitaName + File.separator + nomeStanza + "/Artefatti.txt");
 
         unitaSel.aggiungiStanza(stanza);
+        listaStanze.add(stanza);
 
         return stanza;
     }
@@ -166,6 +178,8 @@ public class ObjectCreator extends GenericInfo implements StaticVariables {
                 FileSaver.createFile(folderUnitaName +File.separator+nomeArtefatto+ "/Attuatori.txt");
 
                 FileSaver.newArtefatto(wPath+File.separator+folderUnitaName+"/Artefatti.txt", nomeArtefatto);
+
+                unitaSel.aggiungiArtefattoUnita(artefatto);
             }
         }
         //inserimento sensore all'esterno
@@ -183,9 +197,10 @@ public class ObjectCreator extends GenericInfo implements StaticVariables {
             FileSaver.createFile(folderUnitaName +File.separator+nomeArtefatto+ "/Attuatori.txt");
 
             FileSaver.newArtefatto(wPath+File.separator+folderUnitaName+"/ArtefattiEsterni.txt", nomeArtefatto);
+            unitaSel.aggiungiArtefattiEsterni(artefatto);
         }
 
-        unitaSel.aggiungiArtefattoUnita(artefatto);
+        listaArtefatti.add(artefatto);
         return artefatto;
     }
 
@@ -262,6 +277,7 @@ public class ObjectCreator extends GenericInfo implements StaticVariables {
             sensore.setDescrizione(unitaSel.getNome() + " (esterno)");
         }
 
+        listaSensori.add(sensore);
         UnitaImmobiliari.printSensori(unitaSel.getListaSensoriUnita());
 
         return sensore;
@@ -340,6 +356,7 @@ public class ObjectCreator extends GenericInfo implements StaticVariables {
             attuatore.setDescrizione(unitaSel.getNome() + " (esterno)");
         }
 
+        listaAttuatori.add(attuatore);
         UnitaImmobiliari.printAttuatori(unitaSel.getListaAttuatoriUnita());
 
         return attuatore;

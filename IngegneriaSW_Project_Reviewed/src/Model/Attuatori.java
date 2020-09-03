@@ -2,7 +2,7 @@ package Model;
 
 public class Attuatori extends GenericInfo{
     private CategoriaAttuatori categoria;
-    private String parametroAssegnato;
+    private ModalitaOperative parametroAssegnato;
     private boolean attivo=true;
 
     public Attuatori(String nome, CategoriaAttuatori categoria){
@@ -25,7 +25,7 @@ public class Attuatori extends GenericInfo{
         super.setDescrizione(descrizione);
     }
 
-    public void setParametroAssegnato(String parametroAssegnato) {
+    public void setParametroAssegnato(ModalitaOperative parametroAssegnato) {
         this.parametroAssegnato = parametroAssegnato;
     }
 
@@ -33,7 +33,7 @@ public class Attuatori extends GenericInfo{
         this.attivo = attivo;
     }
 
-    public String getParametroAssegnato() {
+    public ModalitaOperative getParametroAssegnato() {
         return parametroAssegnato;
     }
 

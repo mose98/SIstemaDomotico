@@ -1,6 +1,7 @@
 import Control.CreatorRemove.ObjectRemoval;
 import Control.FileSaver;
 import Control.ImportClass;
+import Control.Regole;
 import View.StaticVariables;
 import Model.*;
 import View.VistaParametri;
@@ -72,10 +73,7 @@ public class MainVersion implements StaticVariables {
                                 do {
                                     UnitaImmobiliari unita = createUnitaImmobiliare();
 
-                                    listaNomiUnitaImmobiliari.add(unita.getNome());
-                                    listaUnitaImmobiliari.add(unita);
                                     sistemaDomotico.getListUnitaImmobiliari().add(unita);
-
                                     printNewLineAndTitle(titEndNewUnita);
 
                                     folderUnitaName = folderName + File.separator + unita.getNome();
@@ -95,10 +93,6 @@ public class MainVersion implements StaticVariables {
                                 do {
                                     CategoriaSensori categoriaSensore = createCategoriaSensore(folderName + File.separator + "CategorieSensori");
 
-                                    listaNomiCategoriaSensori.add(categoriaSensore.getNome());
-                                    listaCategoriaSensori.add(categoriaSensore);
-                                    categorieSensoriRimanenti.add(categoriaSensore);
-
                                     printNewLineAndTitle(titEndNewCatSens);
 
                                     CategoriaSensori.printListCategoriaSensori(listaCategoriaSensori);
@@ -115,10 +109,6 @@ public class MainVersion implements StaticVariables {
                                 do {
                                     CategoriaAttuatori categoriaAttuatore = createCategoriaAttuatore(folderName + File.separator + "CategorieAttuatori");
 
-                                    listaCategoriaAttuatori.add(categoriaAttuatore);
-                                    listaNomiCategoriaAttuatori.add(categoriaAttuatore.getNome());
-                                    categorieAttuatoriRimanenti.add(categoriaAttuatore);
-
                                     printNewLineAndTitle(titEndNewCatAtt);
 
                                     CategoriaAttuatori.printListCategoriaAttuatori(listaCategoriaAttuatori);
@@ -134,10 +124,6 @@ public class MainVersion implements StaticVariables {
                                     printNewLineAndTitle(titNewStanza);
 
                                     do {
-                                        Stanze stanza = createStanza(folderName);
-
-                                        listaStanze.add(stanza);
-
                                         printNewLineAndTitle(titEndNewStanza);
 
                                         confirm = chooseInsert("Vuoi creare una nuova stanza?\npremere 'y' per confermare\npremere 'n' per tornare al menu precedente", 'y', 'n');
@@ -151,8 +137,6 @@ public class MainVersion implements StaticVariables {
 
                                     do {
                                         Artefatti artefatto = createArtefatto(folderName);
-
-                                        listaArtefatti.add(artefatto);
 
                                         printNewLineAndTitle(titEndNewArtefatto);
 
@@ -168,8 +152,6 @@ public class MainVersion implements StaticVariables {
                                     do {
                                         Sensori sensore = createSensore(folderName);
 
-                                        if (sensore != null) listaSensori.add(sensore);
-
                                         printNewLineAndTitle(titEndNewSensore);
 
                                         confirm = chooseInsert("Vuoi creare un nuovo sensore?\npremere 'y' per confermare\npremere 'n' per tornare al menu precedente", 'y', 'n');
@@ -183,8 +165,6 @@ public class MainVersion implements StaticVariables {
 
                                     do {
                                         Attuatori attuatore = createAttuatore(folderName);
-
-                                        if (attuatore != null) listaAttuatori.add(attuatore);
 
                                         printNewLineAndTitle(titEndNewAttuatore);
 
@@ -373,6 +353,9 @@ public class MainVersion implements StaticVariables {
                             case 23:
                                 listaUnitaImmobiliari.add(ImportClass.importUnita(folderName));
                                 break;
+                            //importa regole
+                            case 24:
+                                break;
                         }
                         break;
                     } while (finishedManut);
@@ -465,21 +448,45 @@ public class MainVersion implements StaticVariables {
                                 break;
                             //assegna parametri modalità operative
                             case 9:
+                                if(listaAttuatori.size()>0){
+                                    VistaParametri.AssegnaParametri();
+                                }
                                 break;
                             //creazione regole
                             case 10:
                                 break;
-                            //creazione regole tempo-dipendenti
+                            //visualizza regole applicate
                             case 11:
+                                if(listaRegoleApplicate.size()>0){
+                                    printTitleAndList("Regole applicate", listaRegoleApplicate);
+                                }
                                 break;
-                            //modifica stato sensore
+                            //visualizza regole create
                             case 12:
+                                if(listaRegole.size()>0){
+                                    printTitleAndList("Lista regole create", listaNomiRegole);
+                                }
                                 break;
-                            //modifica stato attuatore
+                            //creazione regole tempo-dipendenti
                             case 13:
                                 break;
-                            //modifica stato regole
+                            //modifica stato sensore
                             case 14:
+                                if(listaSensori.size()>0){
+                                    VistaParametri.AttivazioneSensori();
+                                }
+                                break;
+                            //modifica stato attuatore
+                            case 15:
+                                if(listaAttuatori.size()>0){
+                                    VistaParametri.AttivazioneAttuatori();
+                                }
+                                break;
+                            //modifica stato regole
+                            case 16:
+                                if(listaRegole.size()>0){
+                                    VistaParametri.AttivazioneRegole();
+                                }
                                 break;
                         }
                         break;

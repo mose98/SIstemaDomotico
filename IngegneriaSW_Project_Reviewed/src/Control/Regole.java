@@ -1,5 +1,7 @@
 package Control;
 
+import java.util.List;
+
 public class Regole {
     private Antecedente antecedente;
     private Conseguente conseguente;
