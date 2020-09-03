@@ -467,7 +467,7 @@ public class MainVersion implements StaticVariables {
                                     printTitleAndList("Lista regole create", listaNomiRegole);
                                 }
                                 break;
-                            //creazione regole tempo-dipendenti
+                            //creazione regole tempoDipendenti
                             case 13:
                                 break;
                             //modifica stato sensore
