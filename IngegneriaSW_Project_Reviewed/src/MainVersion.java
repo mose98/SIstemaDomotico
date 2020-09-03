@@ -3,6 +3,7 @@ import Control.FileSaver;
 import Control.ImportClass;
 import View.StaticVariables;
 import Model.*;
+import View.VistaParametri;
 import mylib.*;
 
 import java.io.File;
@@ -455,6 +456,30 @@ public class MainVersion implements StaticVariables {
 
                                     unitaSel.printStanze();
                                 }
+                                break;
+                            //visualizza valori sensori
+                            case 8:
+                                if(listaSensori.size()>0){
+                                    VistaParametri.ValoriSensori();
+                                }
+                                break;
+                            //assegna parametri modalità operative
+                            case 9:
+                                break;
+                            //creazione regole
+                            case 10:
+                                break;
+                            //creazione regole tempo-dipendenti
+                            case 11:
+                                break;
+                            //modifica stato sensore
+                            case 12:
+                                break;
+                            //modifica stato attuatore
+                            case 13:
+                                break;
+                            //modifica stato regole
+                            case 14:
                                 break;
                         }
                         break;

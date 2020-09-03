@@ -47,6 +47,14 @@ public class CategoriaSensori extends GenericInfo implements StaticVariables {
         }
     }
 
+    public List<Rilevazioni> getRilevazione() {
+        return rilevazione;
+    }
+
+    public List<Sensori> getListaSensori() {
+        return listaSensori;
+    }
+
     @Override
     public String getNome() {
         return super.getNome();
