@@ -1,7 +1,5 @@
+import Control.*;
 import Control.CreatorRemove.ObjectRemoval;
-import Control.FileSaver;
-import Control.ImportClass;
-import Control.Regole;
 import View.StaticVariables;
 import Model.*;
 import View.VistaParametri;
@@ -11,8 +9,12 @@ import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static Control.CreatorRemove.ObjectCreator.*;
 import static Control.RuleController.createRegola;
@@ -42,6 +44,12 @@ public class MainVersion implements StaticVariables {
         char confirm;
 
         menuIniziale = new MyMenu(titolo, vociMenuI);
+
+        Timer timer = new Timer();
+        Timer timerRule2 = new Timer();
+
+        timer.schedule(new ControlRule(), 0, 5000);
+        timerRule2.schedule(new ControlRuleTime(), 0, 500);
 
         menuIniziale.stampaMenu();
         scelta = menuIniziale.scegli();
@@ -529,5 +537,117 @@ public class MainVersion implements StaticVariables {
                     } while (!finishedFruit);
             }
         } while (!finished);
+    }
+}
+
+class ControlRule extends TimerTask {
+
+    private boolean ifAntecedenteTrue(Object fattore1, String operatore, Object fattore2) {
+        if (operatore == "<") {
+            if ((int) fattore1 < (int) fattore2) return true;
+        } else if (operatore == "<=") {
+            if ((int) fattore1 <= (int) fattore2) return true;
+        } else if (operatore == ">") {
+            if ((int) fattore1 > (int) fattore2) return true;
+        } else if (operatore == ">=") {
+            if ((int) fattore1 >= (int) fattore2) return true;
+        } else if (operatore == "==") {
+            if ((int) fattore1 == (int) fattore2) return true;
+            else if ((String) fattore1 == (String) fattore2) return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void run() {
+        Rilevazioni fattore1;
+        String operatore;
+        Rilevazioni fattore2ril = null;
+        int fattore2int = -99999;
+        String fattore2str = null;
+        Object value1 = null;
+        Object value2 = null;
+
+        if (listaRegole.size() > 0) {
+            for (Regole rule : listaRegole
+            ) {
+                Antecedente antecedente = rule.getAntecedente();
+                fattore1 = antecedente.getAnt_fattore1();
+                operatore = antecedente.getAnt_operatore1();
+                fattore2ril = antecedente.getAnt_fattore2();
+                fattore2str = antecedente.getAnt_stfattore2();
+                fattore2int = antecedente.getAnt_fattoreCost2();
+
+                int max1 = 0;
+                int min1 = 0;
+                if (fattore1.getNumerica()) {
+                    max1 = fattore1.getMassimo();
+                    min1 = fattore1.getMinimo();
+                    value1 = (int) (Math.random() * max1 + min1);
+                } else {
+                    int size = fattore1.getDominioValori().size();
+                    int valore = (int) (Math.random() * size);
+                    String valoreReg = fattore1.getDominioValori().get(valore);
+                    value1 = valoreReg;
+                }
+
+                int max2 = 0;
+                int min2 = 0;
+                if (fattore2ril != null) {
+                    max2 = fattore2ril.getMassimo();
+                    min2 = fattore2ril.getMinimo();
+                    value2 = (int) (Math.random() * max2 + min2);
+                }
+                if (fattore2int != -9999) value2 = fattore2int;
+                if (fattore2str != null) value2 = fattore2str;
+                if(value1!=null && value2!=null && operatore!=null) {
+                    if (ifAntecedenteTrue(value1, operatore, value2) == true) {
+                        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
+                        rule.setTime(LocalTime.now().format(dtf));
+                        listaRegoleApplicate.add("AGGIORNAMENTO: la regola '" + rule.getNome() + "' e' stata applicata alle " + rule.getTime());
+                    }
+                }
+            }
+        }
+    }
+}
+
+class ControlRuleTime extends TimerTask {
+
+    private boolean ifAntecedenteTrueT(Calendar time, String operatore) {
+
+        if (operatore == "<") {
+            if (time.get(Calendar.HOUR_OF_DAY) <= LocalTime.now().getHour() && time.get(Calendar.MINUTE) < LocalTime.now().getMinute())
+                return true;
+        } else if (operatore == ">") {
+            if (time.get(Calendar.HOUR_OF_DAY) >= LocalTime.now().getHour() && time.get(Calendar.MINUTE) > LocalTime.now().getMinute())
+                return true;
+        } else if (operatore == "==") {
+            if (time.get(Calendar.HOUR_OF_DAY) == LocalTime.now().getHour() && time.get(Calendar.MINUTE) == LocalTime.now().getMinute())
+                return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void run() {
+        Calendar time;
+        String operatore;
+
+        if (listaRegole.size() > 0) {
+            for (Regole rule : listaRegole
+            ) {
+                Antecedente antecedente = rule.getAntecedente();
+                time = antecedente.getTime();
+                operatore=antecedente.getAnt_operatore1();
+                if(time!=null) {
+                    if (ifAntecedenteTrueT(time, operatore) == true) {
+                        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
+                        rule.setTime(LocalTime.now().format(dtf));
+                        listaRegoleApplicate.add("AGGIORNAMENTO: la regola '" + rule.getNome() + "' e' stata applicata alle " + rule.getTime());
+                    }
+                }
+            }
+        }
     }
 }
