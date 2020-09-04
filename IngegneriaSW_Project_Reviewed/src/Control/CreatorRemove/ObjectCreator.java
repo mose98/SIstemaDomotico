@@ -1,6 +1,9 @@
 package Control.CreatorRemove;
 
+import Control.Antecedente;
+import Control.Conseguente;
 import Control.FileSaver;
+import Control.Regole;
 import View.StaticVariables;
 import Model.*;
 
@@ -143,6 +146,7 @@ public class ObjectCreator extends GenericInfo implements StaticVariables {
 
         unitaSel.aggiungiStanza(stanza);
         listaStanze.add(stanza);
+        listaNomiStanze.add(stanza.getNome());
 
         return stanza;
     }
@@ -201,6 +205,7 @@ public class ObjectCreator extends GenericInfo implements StaticVariables {
         }
 
         listaArtefatti.add(artefatto);
+        listaNomiArtefatti.add(artefatto.getNome());
         return artefatto;
     }
 
@@ -278,6 +283,7 @@ public class ObjectCreator extends GenericInfo implements StaticVariables {
         }
 
         listaSensori.add(sensore);
+        listaNomiSensori.add(sensore.getNome());
         UnitaImmobiliari.printSensori(unitaSel.getListaSensoriUnita());
 
         return sensore;
@@ -357,9 +363,9 @@ public class ObjectCreator extends GenericInfo implements StaticVariables {
         }
 
         listaAttuatori.add(attuatore);
+        listaNomiAttuatori.add(attuatore.getNome());
         UnitaImmobiliari.printAttuatori(unitaSel.getListaAttuatoriUnita());
 
         return attuatore;
     }
-
 }

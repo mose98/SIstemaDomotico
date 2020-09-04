@@ -19,4 +19,6 @@ public class ModalitaOperative extends GenericInfo{
     public List<String> getListaParametri() {
         return listaParametri;
     }
+
+
 }

@@ -53,6 +53,17 @@ public class Util implements StaticVariables {
         return nome;
     }
 
+    public static int readInteger(String testo, int min, int max){
+        int num;
+
+        do {
+            num = InputDati.leggiIntero(testo);
+            System.out.println();
+        } while (num<min || num>max);
+
+        return num;
+    }
+
     public static String readStringUnique(String testo, List list){
         String nome;
 

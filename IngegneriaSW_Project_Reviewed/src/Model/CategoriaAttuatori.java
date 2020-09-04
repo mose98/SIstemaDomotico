@@ -7,6 +7,7 @@ public class CategoriaAttuatori extends GenericInfo{
     private List<ModalitaOperative> listModalitaOperative = new ArrayList<>();
     private List<Attuatori> listaAttuatori = new ArrayList<>();
     private List<String> listaNomiAttuatori = new ArrayList<>();
+    private List<ModalitaOperative> listaModalitaOperativeParametriche = new ArrayList<>();
     private boolean isAttivo=true;
 
     public CategoriaAttuatori(String nome, String descrizione, List<ModalitaOperative> listModalitaOperative){
@@ -98,5 +99,7 @@ public class CategoriaAttuatori extends GenericInfo{
         }
     }
 
-
+    public List<ModalitaOperative> getListaModalitaOperativeParametriche() {
+        return listaModalitaOperativeParametriche;
+    }
 }

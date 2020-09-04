@@ -70,8 +70,14 @@ public class VistaParametri{
         printTitleAndList("Regole create", listaNomiRegole);
         Regole regola = listaRegole.get(chooseFromList("Scegli la regola ", listaNomiRegole)-1);
 
-        if(regola.getAttivo()) regola.setAttivo(false);
-        else regola.setAttivo(true);
+        if(regola.getAttivo()) {
+            regola.setAttivo(false);
+            listaRegoleApplicate.remove(regola.getNome());
+        }
+        else {
+            regola.setAttivo(true);
+            listaRegoleApplicate.add(regola.getNome());
+        }
     }
 
 
